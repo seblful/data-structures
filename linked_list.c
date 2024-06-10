@@ -18,9 +18,28 @@ node* createNode(int value) {
     return newNode;
 };
 
-void addNode(int value) {
-    int a;
-    a = 5;
+node* addNode(node *head, int value) {
+    // Declare temp and p
+    node *temp, *p;
+    
+    // Create temp node
+    temp = createNode(value);
+
+    if (head == NULL) {
+        head = temp;
+    } else {
+        p = head;
+
+        // Find last node
+        while (p->next != NULL) {
+            p = p->next;
+        };
+        
+        // Assign temp to last node
+        p->next = temp;
+    };
+
+    return head;
 };
 
 void printList(node *head) {
@@ -35,21 +54,10 @@ void printList(node *head) {
 };
 
 int main() {
-    node *head;
-    node *temp;
-    node *n;
+    node *head = NULL;
 
-    
-
-    n = createNode(0);
-    head = n;
-    temp = n;
-
-    for (int i = 1; i<6; i++) {
-        n = createNode(i);
-        temp->next = n;
-        temp = temp->next;
-
+    for (int i=1; i<=10; i++) {
+        head = addNode(head, i);
     };
 
     printList(head);
