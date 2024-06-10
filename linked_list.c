@@ -1,19 +1,21 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+// Define the structure for a node in the linked list
 typedef struct Node {
     int value;
     struct Node *next;
 } node;
 
+// Function to create a new node
 node* createNode(int value) {
-    node *temp = NULL;
-    temp = malloc(sizeof(node));
+    node *newNode = NULL;
+    newNode = malloc(sizeof(node));
 
-    temp->value = value;
-    temp->next = NULL;
+    newNode->value = value;
+    newNode->next = NULL;
 
-    return temp;
+    return newNode;
 };
 
 void addNode(int value) {
@@ -22,30 +24,34 @@ void addNode(int value) {
 };
 
 void printList(node *head) {
-    node *temp;
 
-    temp = head;
-
-    printf("Linked List: %d", temp->value);
+    printf("Linked List: %d", head->value);
     
-    while (temp->next != NULL) {
-        temp = temp->next;
-        printf(" %d", temp->value);
+    while (head->next != NULL) {
+        head = head->next;
+        printf(" %d", head->value);
         
     };
 };
 
 int main() {
     node *head;
-    node *one;
-    node *two;
+    node *temp;
+    node *n;
 
-    one = createNode(1);
-    two = createNode(2);
+    
 
-    one->next = two;
+    n = createNode(0);
+    head = n;
+    temp = n;
 
-    head = one;
+    for (int i = 1; i<6; i++) {
+        n = createNode(i);
+        temp->next = n;
+        temp = temp->next;
+
+    };
+
     printList(head);
     return 0;
 };
