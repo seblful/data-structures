@@ -1,5 +1,6 @@
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 // Define the structure for a node in the linked list
 typedef struct Node {
@@ -42,24 +43,50 @@ node* addNode(node *head, int value) {
     return head;
 };
 
+bool searchValue(node *head, int key) {
+    while (head != NULL) {
+        if (head->value == key)
+        return true;
+        head = head->next;
+    };
+
+    return false;
+};
+
+
 void printList(node *head) {
 
-    printf("Linked List: %d", head->value);
+    printf("Linked List: ");
     
-    while (head->next != NULL) {
+    while (head != NULL) {
+        printf("%d -> ", head->value);
         head = head->next;
-        printf(" %d", head->value);
-        
     };
+    printf("\n");
 };
 
 int main() {
     node *head = NULL;
+    int searchKey = 2;
+    bool search;
 
     for (int i=1; i<=10; i++) {
         head = addNode(head, i);
     };
 
+    // Print values of linked list
     printList(head);
+
+
+    // Search value in linked list
+    search = searchValue(head, searchKey);
+
+    if (search == true) {
+        printf("Value %d is in list.\n", searchKey);
+    }
+    else {
+        printf("Value %d is not in list.\n", searchKey);
+    };
+
     return 0;
 };
