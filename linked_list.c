@@ -19,6 +19,7 @@ node* createNode(int value) {
     return newNode;
 };
 
+// Function to add node to the end
 node* addNode(node *head, int value) {
     // Declare temp and p
     node *temp, *p;
@@ -43,6 +44,7 @@ node* addNode(node *head, int value) {
     return head;
 };
 
+// Function to search value in list
 bool searchValue(node *head, int key) {
     while (head != NULL) {
         if (head->value == key)
@@ -53,7 +55,20 @@ bool searchValue(node *head, int key) {
     return false;
 };
 
+// Function to clear list
+void clearList(node *head) {
+    node *temp;
 
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+        
+    }
+}
+
+
+// Function to print values of the list
 void printList(node *head) {
 
     printf("Linked List: ");
@@ -65,12 +80,13 @@ void printList(node *head) {
     printf("\n");
 };
 
+
 int main() {
     node *head = NULL;
     int searchKey = 2;
     bool search;
 
-    for (int i=1; i<=10; i++) {
+    for (int i=1; i<=100; i++) {
         head = addNode(head, i);
     };
 
@@ -87,6 +103,12 @@ int main() {
     else {
         printf("Value %d is not in list.\n", searchKey);
     };
+
+    // Clear list
+    printf("Size of the head before clear is %d.\n", sizeof(head));
+    clearList(head);
+    printf("Size of the head after clear is %d.\n", sizeof(head));
+    // printList(head);
 
     return 0;
 };
