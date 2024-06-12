@@ -22,7 +22,7 @@ void printList(node *head) {
     printf("Doubly Linked List: ");
 
     while (head != NULL) {
-        printf("%d <->", head->value);
+        printf("%d <-> ", head->value);
         head = head->next;
     };
 };
@@ -35,22 +35,25 @@ node* addNode(node *head, int value) {
     if (head == NULL) {
         head = temp;
     } else {
-        p = temp;
+        p = head;
 
         while (p->next != NULL) {
             p = p->next;
         }
 
         p->next = temp;
+        temp->previous = p;
     };
 
     return head;
 };
 
 int main() {
-    node *head;
+    node *head = NULL;
     
-    head = createNode(1);
+    for (int i=1; i<=7; i++) {
+        head = addNode(head, i);
+    };
 
     printList(head);
 
