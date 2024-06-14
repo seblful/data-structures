@@ -8,6 +8,7 @@ The repository will include implementations of next data structures:
 - **Linked Lists**
   - Singly Linked List
   - Doubly Linked List
+  - Circular Linked List
 - **Stacks**
 - **Queues**
 - **Hash Tables**
