@@ -73,7 +73,18 @@ int pop(stack *st)
 
 int peek(stack *st)
 {
-    return st->items[st->top];
+    if (isEmpty(st) == false)
+    {
+        int temp;
+        temp = st->items[st->top];
+        printf("Value %d peeked from the stack.\n", temp);
+        return temp;
+    }
+    else
+    {
+        printf("Stack is empty, nothing to peek.\n");
+        return 1;
+    }
 };
 
 void printStack(stack *st)
@@ -111,5 +122,9 @@ int main()
     pop(st);
 
     printStack(st);
+
+    // Peek
+    peek(st);
+
     return 0;
 };
