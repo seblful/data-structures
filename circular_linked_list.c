@@ -1,17 +1,19 @@
-# include <stdlib.h>
-# include <stdio.h>
-# include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
 
 // Define the structure for a node in the doubly linked list
-typedef struct Node {
+typedef struct Node
+{
     int value;
     struct Node *next;
 } node;
 
 // Function to create a new node
-node* createNode(int value) {
+node *createNode(int value)
+{
     node *newNode = NULL;
-    newNode = (node*)malloc(sizeof(node));
+    newNode = (node *)malloc(sizeof(node));
 
     newNode->value = value;
     newNode->next = NULL;
@@ -20,18 +22,23 @@ node* createNode(int value) {
 };
 
 // Function to add node to the end
-node* addNode(node *head, int value) {
+node *addNode(node *head, int value)
+{
     node *temp, *p;
 
     temp = createNode(value);
 
-    if (head == NULL) {
+    if (head == NULL)
+    {
         head = temp;
         head->next = head;
-    } else {
+    }
+    else
+    {
         p = head;
 
-        while (p->next != head) {
+        while (p->next != head)
+        {
             p = p->next;
         }
 
@@ -43,71 +50,79 @@ node* addNode(node *head, int value) {
 };
 
 // Function to search value in list
-bool searchValue(node *head, int key) {
+bool searchValue(node *head, int key)
+{
     node *temp;
 
     temp = head;
 
-    do {
-        if (temp->value == key) {
+    do
+    {
+        if (temp->value == key)
+        {
             return true;
         };
         temp = temp->next;
-    }
-    while (temp != head);
+    } while (temp != head);
 
     return false;
 };
 
 // Function to clear list
-void clearList(node *head) {
+void clearList(node *head)
+{
     node *current = head;
     node *next = NULL;
 
     // Traverse the list until we reach the head node again
-    while (current != head || next != head) {
+    while (current != head || next != head)
+    {
         next = current->next;
         free(current);
         current = next;
     }
 };
 
-void printList(node *head) {
+void printList(node *head)
+{
     node *temp;
 
     temp = head;
 
     printf("Circular Linked List: -> ");
 
-    do {
+    do
+    {
         printf("%d -> ", temp->value);
         temp = temp->next;
-    }
-    while (temp != head);
+    } while (temp != head);
 
     printf("\n");
 };
 
-int main() {
+int main()
+{
     node *head = NULL;
     int searchKey = 2;
     bool search;
-    
-    for (int i=1; i<=7; i++) {
+
+    for (int i = 1; i <= 7; i++)
+    {
         head = addNode(head, i);
     };
 
     // Print values of linked list
     printList(head);
 
-
     // Search value in linked list
     search = searchValue(head, searchKey);
 
-    if (search == true) {
+    if (search == true)
+    {
         printf("Value %d is in list.\n", searchKey);
     }
-    else {
+    else
+    {
         printf("Value %d is not in list.\n", searchKey);
     };
 

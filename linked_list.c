@@ -1,15 +1,17 @@
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 // Define the structure for a node in the linked list
-typedef struct Node {
+typedef struct Node
+{
     int value;
     struct Node *next;
 } node;
 
 // Function to create a new node
-node* createNode(int value) {
+node *createNode(int value)
+{
     node *newNode = NULL;
     newNode = malloc(sizeof(node));
 
@@ -20,23 +22,28 @@ node* createNode(int value) {
 };
 
 // Function to add node to the end
-node* addNode(node *head, int value) {
+node *addNode(node *head, int value)
+{
     // Declare temp and p
     node *temp, *p;
-    
+
     // Create temp node
     temp = createNode(value);
 
-    if (head == NULL) {
+    if (head == NULL)
+    {
         head = temp;
-    } else {
+    }
+    else
+    {
         p = head;
 
         // Find last node
-        while (p->next != NULL) {
+        while (p->next != NULL)
+        {
             p = p->next;
         };
-        
+
         // Assign temp to last node
         p->next = temp;
     };
@@ -45,10 +52,12 @@ node* addNode(node *head, int value) {
 };
 
 // Function to search value in list
-bool searchValue(node *head, int key) {
-    while (head != NULL) {
+bool searchValue(node *head, int key)
+{
+    while (head != NULL)
+    {
         if (head->value == key)
-        return true;
+            return true;
         head = head->next;
     };
 
@@ -56,51 +65,55 @@ bool searchValue(node *head, int key) {
 };
 
 // Function to clear list
-void clearList(node *head) {
+void clearList(node *head)
+{
     node *temp;
 
-    while (head != NULL) {
+    while (head != NULL)
+    {
         temp = head;
         head = head->next;
         free(temp);
-        
     }
 }
 
-
 // Function to print values of the list
-void printList(node *head) {
+void printList(node *head)
+{
 
     printf("Linked List: ");
-    
-    while (head != NULL) {
+
+    while (head != NULL)
+    {
         printf("%d -> ", head->value);
         head = head->next;
     };
     printf("\n");
 };
 
-
-int main() {
+int main()
+{
     node *head = NULL;
     int searchKey = 2;
     bool search;
 
-    for (int i=1; i<=100; i++) {
+    for (int i = 1; i <= 100; i++)
+    {
         head = addNode(head, i);
     };
 
     // Print values of linked list
     printList(head);
 
-
     // Search value in linked list
     search = searchValue(head, searchKey);
 
-    if (search == true) {
+    if (search == true)
+    {
         printf("Value %d is in list.\n", searchKey);
     }
-    else {
+    else
+    {
         printf("Value %d is not in list.\n", searchKey);
     };
 
