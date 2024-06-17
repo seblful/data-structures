@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#define CAPACITY 10
+
 typedef struct Node
 {
     int value;
@@ -52,6 +54,11 @@ bool searchValue(node *head, int key)
     };
 
     return false;
+};
+
+int hashFunction(int key, int capacity)
+{
+    return key % capacity;
 };
 
 int main()
