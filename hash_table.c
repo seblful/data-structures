@@ -119,16 +119,38 @@ bool search(hashTable *table, int key) {
         lastNode = lastNode->next;
     };
 
+    // Return false if was not found 
     return false;
 
 };
 
-char *get(hashTable *table, int key) {};
+char *get(hashTable *table, int key) {
+    int index = hash(key, table->capacity);
+
+    // Return empty string if there is no node in array
+    if (table->arr[index] == 0) {
+        return "";
+    };
+
+    // Search every node by key
+    node *lastNode;
+    lastNode = table->arr[index];
+
+    while (lastNode != NULL) {
+        if (lastNode->key == key) {
+            return lastNode->value;
+        }
+        lastNode = lastNode->next;
+    };
+
+    // Return empty string
+    return "";
+};
 
 int main()
 {
     hashTable *table;
-    int searchKey = 3;
+    int searchKey = 10;
 
     // Create table
     table = createHashTable(10);
@@ -149,5 +171,8 @@ int main()
         printf("Key %d was not found in the table.\n", searchKey);
     };
 
-    return 0;
+    // Get
+    printf("Got value %s by key %d.\n", get(table, searchKey), searchKey);
+
+    return 1;
 };
