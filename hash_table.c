@@ -12,7 +12,8 @@ typedef struct Node
 } node;
 
 // Define the structure for HashTable
-typedef struct HashTable {
+typedef struct HashTable
+{
     node **arr;
     int size;
     int capacity;
@@ -24,7 +25,6 @@ node *createNode(int key, char *value)
     node *newNode = (node *)malloc(sizeof(node));
 
     newNode->key = key;
-    //newNode->value = value;
     strcpy(newNode->value, value);
     newNode->next = NULL;
 
@@ -44,9 +44,17 @@ bool searchValue(node *head, int key)
     return false;
 };
 
-hashTable *createHashTable(int capacity) {
-    hashTable *table = (hashTable*) malloc(sizeof(hashTable));
-    table->arr = (node**)malloc(sizeof(node*) * capacity);
+hashTable *createHashTable(int capacity)
+{
+    // Allocate memory for hash table
+    hashTable *table = (hashTable *)malloc(sizeof(hashTable));
+    // Allocate memory for table array and make all values NULL
+    table->arr = (node **)malloc(sizeof(node *) * capacity);
+    for (int i = 0; i < capacity; i++)
+    {
+        table->arr[i] = NULL;
+    };
+
     table->size = 0;
     table->capacity = capacity;
     return table;
@@ -57,28 +65,46 @@ int hash(int key, int capacity)
     return key % capacity;
 };
 
-void insert(hashTable *table, int key, char *value) {
-    int index = hash(key, table->capacity);
+void insert(hashTable *table, int key, char *value)
+{   
     node *newNode;
 
+    int index = hash(key, table->capacity);
+    
+
+    // Create new node with key and value
     newNode = createNode(key, value);
 
-    if (table->arr[index] == NULL) {
+    // Add node if index is empty
+    if (table->arr[index] == NULL)
+    {
         table->arr[index] = newNode;
     }
-    else {
-        node *temp;
-        temp = table->arr[index];
-
-        while (temp->next != NULL) {
-            temp = temp->next;
-        };
-
-        temp->next = newNode;
-    }
-    
-    
+    else
+    {   
+        // Rewrite old value if key is the same
+        if (table->arr[index]->key == key)
+        {
+            table->arr[index]->key = key;
+            strcpy(table->arr[index]->value, value);
+        }
+        else
+        {
+            // Add node if index the same buy key is different
+            newNode->next = table->arr[index];
+            table->arr[index] = newNode;
+        }
+    };
 };
+
+bool get(hashTable *table, int key) {
+    int index = hash(key, table->capacity);
+
+    
+
+};
+
+char *get(hashTable *table, int key) {};
 
 int main()
 {
@@ -86,6 +112,22 @@ int main()
 
     table = createHashTable(10);
     insert(table, 0, "John");
-    
+    printf("%d\n", table->arr[0]->key);
+    printf("%s\n", table->arr[0]->value);
+    insert(table, 0, "Mike");
+    printf("%d\n", table->arr[0]->key);
+    printf("%s\n", table->arr[0]->value);
+    insert(table, 10, "Jane");
+    printf("%d\n", table->arr[0]->key);
+    printf("%s\n", table->arr[0]->value);
+
+
+    // insert(table, 1, "Deer");
+    // insert(table, 2, "Mone");
+    // printf("%d\n", table->arr[1]->key);
+    // printf("%s\n", table->arr[1]->value);
+
+    // printf("%d\n", table->arr[0]->key);
+    // printf("%s\n", table->arr[0]->value);
     return 0;
 };
