@@ -79,6 +79,7 @@ void insert(hashTable *table, int key, char *value)
     if (table->arr[index] == NULL)
     {
         table->arr[index] = newNode;
+        table->size++;
     }
     else
     {   
@@ -93,14 +94,32 @@ void insert(hashTable *table, int key, char *value)
             // Add node if index the same buy key is different
             newNode->next = table->arr[index];
             table->arr[index] = newNode;
+            table->size++;
         }
     };
 };
 
-bool get(hashTable *table, int key) {
+bool search(hashTable *table, int key) {
+
     int index = hash(key, table->capacity);
 
-    
+    // Return false if there is no node in array
+    if (table->arr[index] == 0) {
+        return false;
+    };
+
+    // Search every node by key
+    node *lastNode;
+    lastNode = table->arr[index];
+
+    while (lastNode != NULL) {
+        if (lastNode->key == key) {
+            return true;
+        }
+        lastNode = lastNode->next;
+    };
+
+    return false;
 
 };
 
@@ -109,25 +128,26 @@ char *get(hashTable *table, int key) {};
 int main()
 {
     hashTable *table;
+    int searchKey = 3;
 
+    // Create table
     table = createHashTable(10);
+
+    // Insert
     insert(table, 0, "John");
-    printf("%d\n", table->arr[0]->key);
-    printf("%s\n", table->arr[0]->value);
     insert(table, 0, "Mike");
-    printf("%d\n", table->arr[0]->key);
-    printf("%s\n", table->arr[0]->value);
     insert(table, 10, "Jane");
-    printf("%d\n", table->arr[0]->key);
-    printf("%s\n", table->arr[0]->value);
+    insert(table, 1, "Deer");
+    insert(table, 2, "Mone");
 
 
-    // insert(table, 1, "Deer");
-    // insert(table, 2, "Mone");
-    // printf("%d\n", table->arr[1]->key);
-    // printf("%s\n", table->arr[1]->value);
+    // Search
+    if (search(table, searchKey) == true) {
+        printf("Key %d was found in the table.\n", searchKey);
+    }
+    else {
+        printf("Key %d was not found in the table.\n", searchKey);
+    };
 
-    // printf("%d\n", table->arr[0]->key);
-    // printf("%s\n", table->arr[0]->value);
     return 0;
 };
