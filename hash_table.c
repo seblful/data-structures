@@ -66,7 +66,7 @@ int hash(int key, int capacity)
 };
 
 void insert(hashTable *table, int key, char *value)
-{   
+{
     node *newNode;
     // Find index by hash
     int index = hash(key, table->capacity);
@@ -81,7 +81,7 @@ void insert(hashTable *table, int key, char *value)
         table->size++;
     }
     else
-    {   
+    {
         // Rewrite old value if key is the same
         if (table->arr[index]->key == key)
         {
@@ -98,12 +98,14 @@ void insert(hashTable *table, int key, char *value)
     };
 };
 
-bool search(hashTable *table, int key) {
+bool search(hashTable *table, int key)
+{
     // Find index by hash
     int index = hash(key, table->capacity);
 
     // Return false if there is no node in array
-    if (table->arr[index] == NULL) {
+    if (table->arr[index] == NULL)
+    {
         return false;
     };
 
@@ -111,24 +113,27 @@ bool search(hashTable *table, int key) {
     node *lastNode;
     lastNode = table->arr[index];
 
-    while (lastNode != NULL) {
-        if (lastNode->key == key) {
+    while (lastNode != NULL)
+    {
+        if (lastNode->key == key)
+        {
             return true;
         }
         lastNode = lastNode->next;
     };
 
-    // Return false if was not found 
+    // Return false if was not found
     return false;
-
 };
 
-char *get(hashTable *table, int key) {
+char *get(hashTable *table, int key)
+{
     // Find index by hash
     int index = hash(key, table->capacity);
 
     // Return empty string if there is no node in array
-    if (table->arr[index] == 0) {
+    if (table->arr[index] == 0)
+    {
         return "";
     };
 
@@ -136,8 +141,10 @@ char *get(hashTable *table, int key) {
     node *lastNode;
     lastNode = table->arr[index];
 
-    while (lastNode != NULL) {
-        if (lastNode->key == key) {
+    while (lastNode != NULL)
+    {
+        if (lastNode->key == key)
+        {
             return lastNode->value;
         }
         lastNode = lastNode->next;
@@ -147,25 +154,31 @@ char *get(hashTable *table, int key) {
     return "";
 };
 
-void delete(hashTable *table, int key) {
+void delete(hashTable *table, int key)
+{
     // Find index by hash
     int index = hash(key, table->capacity);
 
     // Return if there is no node in array
-    if (table->arr[index] == NULL) {
+    if (table->arr[index] == NULL)
+    {
         return;
     };
 
     node *lastNode;
     node *currentNode = table->arr[index];
 
-    while (currentNode != NULL) {
-        if (currentNode->key == key) {
+    while (currentNode != NULL)
+    {
+        if (currentNode->key == key)
+        {
             // If head node
-            if (currentNode == table->arr[index]) {
+            if (currentNode == table->arr[index])
+            {
                 table->arr[index] = currentNode->next;
             }
-            else {
+            else
+            {
                 // Last node or middle node
                 lastNode->next = currentNode->next;
             };
@@ -195,12 +208,13 @@ int main()
     insert(table, 1, "Deer");
     insert(table, 2, "Mone");
 
-
     // Search
-    if (search(table, key) == true) {
+    if (search(table, key) == true)
+    {
         printf("Key %d was found in the table.\n", key);
     }
-    else {
+    else
+    {
         printf("Key %d was not found in the table.\n", key);
     };
 
@@ -209,12 +223,14 @@ int main()
     printf("Got value %s by key %d.\n", value, key);
 
     // Delete key and search again
-    delete(table, key);
+    delete (table, key);
 
-    if (search(table, key) == true) {
+    if (search(table, key) == true)
+    {
         printf("Key %d was found in the table.\n", key);
     }
-    else {
+    else
+    {
         printf("Key %d was not found in the table.\n", key);
     };
     return 0;
